@@ -1,3 +1,5 @@
+import { Model } from "mongoose"
+
 export type TFullname = {  
     firstName: string
     lastName: string  
@@ -26,3 +28,9 @@ export  type TUser = {
     address: TAddress
    // order: TOrder[] 
 }
+
+export type UserMethod = {
+    isUserExist(userId: number) : Promise<TUser | null>
+}
+
+export type UserModel = Model<TUser, Record<string, never>, UserMethod>

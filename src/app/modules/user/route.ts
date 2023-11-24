@@ -5,6 +5,9 @@ import { userController } from "./user-controller";
 const router = express.Router()
 
 router.post('/api/users', userController.createUser)
-router.get('/users', userController.getUser)
+router.get('/api/users', userController.getUser)
+router.get('/api/users/:userId', userController.getSingleUser)
+router.put('/api/users/:userId', )
+router.delete('/api/users/:userId', )
 
 export const userRouter = router

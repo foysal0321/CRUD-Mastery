@@ -1,5 +1,5 @@
 import {Schema, model} from 'mongoose'
-import { TAddress, TFullname, TOrder, TUser } from './user-interface'
+import { TAddress, TFullname, TOrder, TUser, UserMethod, UserModel } from './user-interface'
 
 const fullNameSchema = new Schema<TFullname>({
     firstName: {
@@ -33,7 +33,7 @@ const orderSchema = new Schema<TOrder>({
     }
 })
 
-const userSchema = new Schema<TUser>({
+const userSchema = new Schema<TUser, UserModel, UserMethod>({
     userId:{
         type: Number,
         unique: true,
@@ -66,4 +66,11 @@ const userSchema = new Schema<TUser>({
     // }
 })
 
-export const UserModel = model<TUser>('User', userSchema)
+
+userSchema.methods.isUserExist = async function (userId: number) {
+    const existUser = await User.findOne({userId})
+    return existUser
+}
+
+
+export const User = model<TUser, UserModel>('User', userSchema)
