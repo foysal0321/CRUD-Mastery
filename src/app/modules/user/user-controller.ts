@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { userService } from "./user-service";
-import { userValidate } from "./validation-zod";
+import { userValidate } from "./user-validation";
 
 const createUser = async (req: Request, res: Response) => {
     try {
@@ -80,16 +80,21 @@ const updateUser = async (req: Request, res: Response) => {
 
 const deleteUser = async (req: Request, res: Response) => {
     try {
-        const result = await userService.getUserDB()
+        const user = req.params.userId
+        const result = await userService.deleteUserDB(user)
 
         res.status(200).json({
             success: true,
-            message: 'success',
+            message: 'User delete success',
             data: result
         })
 
     } catch (err) {
-        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'Something was wrong',
+            error: err
+        })
     }
 }
 

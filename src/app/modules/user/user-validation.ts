@@ -4,6 +4,7 @@ const fullnameSchema = z.object({
     firstName: z.string(),
     lastName: z.string()
 })
+
 const addressSchema = z.object({
     street: z.string(),
     city: z.string(),
@@ -16,21 +17,22 @@ const orderSchema = z.array(z.object({
     quantity: z.number()
 }))
 
-const hobbie = z.array(z.string())
+const hobbieSchema = z.array(z.string())
 
 const userSchema = z.object({
     userId: z.number(),
     username: z.string(),
-    password: z.string(),   
+    password: z.string(),
     fullName: fullnameSchema.required(),
     age: z.number(),
     email: z.string().email(),
     isActive: z.boolean(),
-    hobbies: hobbie,
-    address: addressSchema,   
+    hobbies: hobbieSchema,
+    address: addressSchema,
     //orders: orderSchema
 })
 
+
 export const userValidate = {
-     userSchema
+    userSchema
 }

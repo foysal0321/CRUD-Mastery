@@ -33,4 +33,5 @@ export type UserMethod = {
     isUserExist(userId: number) : Promise<TUser | null>
 }
 
+
 export type UserModel = Model<TUser, Record<string, never>, UserMethod>

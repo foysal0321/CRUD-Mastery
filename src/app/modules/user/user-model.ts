@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { TAddress, TFullname, TOrder, TUser, UserMethod, UserModel } from './user-interface'
 
 const fullNameSchema = new Schema<TFullname>({
@@ -21,6 +21,7 @@ const adressSchema = new Schema<TAddress>({
         type: String
     }
 })
+
 const orderSchema = new Schema<TOrder>({
     productName: {
         type: String
@@ -34,7 +35,7 @@ const orderSchema = new Schema<TOrder>({
 })
 
 const userSchema = new Schema<TUser, UserModel, UserMethod>({
-    userId:{
+    userId: {
         type: Number,
         unique: true,
         required: true
@@ -68,7 +69,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethod>({
 
 
 userSchema.methods.isUserExist = async function (userId: number) {
-    const existUser = await User.findOne({userId})
+    const existUser = await User.findOne({ userId })
     return existUser
 }
 

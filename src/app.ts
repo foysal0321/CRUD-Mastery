@@ -5,11 +5,13 @@ const app: Application = express()
 
 app.use(express.json())
 app.use(cors())
+
+// application router
 app.use(userRouter)
 
 
-app.get('/', (req: Request, res: Response)=> {
-   res.send('server is running')
+app.get('/', (req: Request, res: Response) => {
+   res.send('Server is running')
 })
 
 
