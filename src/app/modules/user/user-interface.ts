@@ -27,7 +27,7 @@ export  type TUser = {
     isActive: boolean
     hobbies: string[]
     address: TAddress
-    orders: {}[]
+    orders?: TOrder[]
 }
 
 export type UserMethod = {
@@ -35,4 +35,5 @@ export type UserMethod = {
 }
 
 
-export type UserModel = Model<TUser, Record<string, never>, UserMethod>
+
+export type UserModel = Model<TUser, Record<string, never>, UserMethod >

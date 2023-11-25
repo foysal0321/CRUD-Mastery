@@ -31,8 +31,9 @@ const deleteUserDB = async (userId: string) => {
 
 //-------- user order -------
 
-const createProductUserDB = async (userId: string) => {
-
+const createProductUserDB = async (userId: string, updateOrder: TUser) => {
+    const result = await User.updateOne({userId}, {$set: updateOrder})
+    return result
 }
 
 const getOrderUserDB = async (userId: string) => {

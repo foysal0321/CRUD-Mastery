@@ -18,11 +18,12 @@ const orderSchema = z.array(z.object({
 }))
 
 const hobbieSchema = z.array(z.string())
-const order2Schema = z.array(z.object({}))
 
 const userSchema = z.object({
     userId: z.number(),
-    username: z.string(),
+    username: z.string().refine((value)=> value.trim().length > 0, {
+        message: 'name is required'
+    }),
     password: z.string(),
     fullName: fullnameSchema.required(),
     age: z.number(),
@@ -30,7 +31,7 @@ const userSchema = z.object({
     isActive: z.boolean(),
     hobbies: hobbieSchema,
     address: addressSchema,
-    orders: order2Schema
+    orders: orderSchema.optional()
 })
 
 

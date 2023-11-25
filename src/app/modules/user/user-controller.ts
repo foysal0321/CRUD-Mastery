@@ -6,7 +6,6 @@ import { TOrder, TUser } from "./user-interface";
 const createUser = async (req: Request, res: Response) => {
     try {
         const user = req.body
-        //const password = user.password
 
         const userValidateData = userValidate.userSchema.parse(user)
         const result = await userService.createUserDB(userValidateData)
@@ -93,6 +92,10 @@ const deleteUser = async (req: Request, res: Response) => {
         const user = req.params.userId
         const result = await userService.deleteUserDB(user)
 
+        if(''){
+           throw new Error ('error')
+        }
+
         res.status(200).json({
             success: true,
             message: 'User delete success',
@@ -110,19 +113,19 @@ const deleteUser = async (req: Request, res: Response) => {
 //-------- user orders -------------
 const addProductOrder = async (req: Request, res: Response) => {
     try {
-
-
+        const user = req.params.userId
+        const updateOrder = req.body
+        const result = await userService.createProductUserDB(user, updateOrder)
+        console.log(result);
+        
         res.status(200).json({
             success: true,
-            message: 'User delete success',
-            data: ''
+            message: 'Product created success',
+            data: result
         })
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: 'Something was wrong',
-            error: err
-        })
+       console.log(err);
+       
     }
 }
 
