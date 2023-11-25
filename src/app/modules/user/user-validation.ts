@@ -21,8 +21,8 @@ const hobbieSchema = z.array(z.string())
 
 const userSchema = z.object({
     userId: z.number(),
-    username: z.string().refine((value)=> value.trim().length > 0, {
-        message: 'name is required'
+    username: z.string().refine((value) => value.trim().length > 0, {
+        message: 'userName is required'
     }),
     password: z.string(),
     fullName: fullnameSchema.required(),

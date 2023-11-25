@@ -1,23 +1,23 @@
 import { Model } from "mongoose"
 
-export type TFullname = {  
+export type TFullname = {
     firstName: string
-    lastName: string  
+    lastName: string
 }
 
-export type TAddress = {  
+export type TAddress = {
     street: string
     city: string
     country: string
 }
 
-export type TOrder = {  
+export type TOrder = {
     productName: string
     price: number
     quantity: number
 }
 
-export  type TUser = {
+export type TUser = {
     userId: number
     username: string
     password: string
@@ -31,9 +31,9 @@ export  type TUser = {
 }
 
 export type UserMethod = {
-    isUserExist(userId: string) : Promise<TUser | null>
+    isUserExist(userId: string): Promise<TUser | null>
 }
 
 
 
-export type UserModel = Model<TUser, Record<string, never>, UserMethod >
+export type UserModel = Model<TUser, Record<string, never>, UserMethod>

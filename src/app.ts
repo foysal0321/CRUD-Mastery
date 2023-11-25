@@ -9,10 +9,15 @@ app.use(cors())
 // application router
 app.use(userRouter)
 
-
 app.get('/', (req: Request, res: Response) => {
-   res.send('Server is running')
+   res.send('Welcome! Server is running..')
 })
 
+app.all('*', (req: Request, res: Response) => {
+   res.status(400).json({
+      success: false,
+      message: 'Route is not found!'
+   })
+})
 
 export default app

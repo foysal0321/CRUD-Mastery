@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt'
 import config from '../../config'
 
 
-
 const fullNameSchema = new Schema<TFullname>({
     firstName: {
         type: String
@@ -72,7 +71,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethod>({
     }
 })
 
-//middware
+//middleware
 userSchema.pre('save', async function (next) {
     const user = this
     //hasing password and save into db
@@ -83,11 +82,11 @@ userSchema.pre('save', async function (next) {
 })
 
 // password not send into response
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
     let obj = this.toObject();
     delete obj.password;
     return obj;
-  }
+}
 
 // check existUser into db
 userSchema.methods.isUserExist = async function (userId: string) {
