@@ -13,21 +13,14 @@ const getUserDB = async () => {
 }
 
 const getSingleUserDB = async (userId: any) => {
+    const result = await User.findOne({ userId })
+    return result
 
-    // const result = await User.findOne({userId})
-    // return result
-
-    const newUser = new User(userId)
-    if (await newUser.isUserExist(userId)) {
-        const result = await User.findOne({ userId })
-        return result
-    } else {
-        throw new Error('User not exist')
-    }
 }
 
-const updateUserDB = async (userId: string) => {
-    const result = await User.updateOne({ userId })
+
+const updateUserDB = async (userId: string, updateData: TUser) => {
+    const result = await User.updateOne({ userId }, {$set: updateData})
     return result
 }
 
@@ -36,11 +29,26 @@ const deleteUserDB = async (userId: string) => {
     return result
 }
 
+//-------- user order -------
+
+const createProductUserDB = async (userId: string) => {
+
+}
+
+const getOrderUserDB = async (userId: string) => {
+
+}
+
+const getTotalpriceOrderDB = async (userId: string) => {
+
+}
+
 
 export const userService = {
     createUserDB,
     getUserDB,
     getSingleUserDB,
     updateUserDB,
-    deleteUserDB
+    deleteUserDB,
+    createProductUserDB
 }

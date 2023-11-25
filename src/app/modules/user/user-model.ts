@@ -47,13 +47,15 @@ const userSchema = new Schema<TUser, UserModel, UserMethod>({
     },
     password: {
         type: String
+        
     },
     fullName: fullNameSchema,
     age: {
         type: Number
     },
     email: {
-        type: String
+        type: String,
+        unique: true
     },
     isActive: {
         type: Boolean
@@ -62,16 +64,18 @@ const userSchema = new Schema<TUser, UserModel, UserMethod>({
         type: [String],
     },
     address: adressSchema,
-    // order: {
-    //     type: [orderSchema]
-    // }
+    orders: {
+        type: [{}]
+    }
 })
 
 
-userSchema.methods.isUserExist = async function (userId: number) {
+
+userSchema.methods.isUserExist = async function (userId: string) {
     const existUser = await User.findOne({ userId })
     return existUser
 }
+
 
 
 export const User = model<TUser, UserModel>('User', userSchema)

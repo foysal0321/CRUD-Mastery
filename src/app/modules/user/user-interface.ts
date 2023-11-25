@@ -4,6 +4,7 @@ export type TFullname = {
     firstName: string
     lastName: string  
 }
+
 export type TAddress = {  
     street: string
     city: string
@@ -26,11 +27,11 @@ export  type TUser = {
     isActive: boolean
     hobbies: string[]
     address: TAddress
-   // order: TOrder[] 
+    orders: {}[]
 }
 
 export type UserMethod = {
-    isUserExist(userId: number) : Promise<TUser | null>
+    isUserExist(userId: string) : Promise<TUser | null>
 }
 
 
