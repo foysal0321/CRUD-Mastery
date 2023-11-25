@@ -11,9 +11,9 @@ router.put('/api/users/:userId', userController.updateUser)
 router.delete('/api/users/:userId', userController.deleteUser)
 
 // user orders route
-router.put('/api/users/:userId/orders')
-router.get('/api/users/:userId/orders')
-router.get('/api/users/:userId/orders/total-price')
+router.put('/api/users/:userId/orders', userController.addProductOrder)
+router.get('/api/users/:userId/orders', userController.getAllOrdersUser)
+router.get('/api/users/:userId/orders/total-price', userController.getTotalpriceOrder)
 
 
 export const userRouter = router

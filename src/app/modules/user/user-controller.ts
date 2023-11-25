@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { userService } from "./user-service";
 import { userValidate } from "./user-validation";
 import { TOrder, TUser } from "./user-interface";
+import { User } from "./user-model";
 
 const createUser = async (req: Request, res: Response) => {
     try {
@@ -74,6 +75,7 @@ const updateUser = async (req: Request, res: Response) => {
 
         if(await !result?.isUserExist(user)){
             throw new Error('User not found')
+          
         } 
         res.status(200).json({
             success: true,
@@ -83,8 +85,11 @@ const updateUser = async (req: Request, res: Response) => {
     } catch (err: any) {
         res.status(500).json({
             success: false,
-            message: err.message || "Something was wrong!",
-            error: err
+            message: err.message ||"User not found",
+            error: {
+                code: 404,
+                description: "User not found!"
+            }
         })
     }
 };
@@ -117,7 +122,7 @@ const addProductOrder = async (req: Request, res: Response) => {
         const user = req.params.userId
         const updateOrder = req.body
         const result = await userService.createProductUserDB(user, updateOrder)
-        console.log(result);
+        console.log(user);
 
         res.status(200).json({
             success: true,
@@ -132,12 +137,13 @@ const addProductOrder = async (req: Request, res: Response) => {
 
 const getAllOrdersUser = async (req: Request, res: Response) => {
     try {
-
+        const user = req.params.userId
+        const result = await userService.getOrderUserDB(user)
 
         res.status(200).json({
             success: true,
-            message: 'User delete success',
-            data: ''
+            message: 'Order fetched successfuly',
+            data: result
         })
     } catch (err) {
         res.status(500).json({
@@ -150,12 +156,13 @@ const getAllOrdersUser = async (req: Request, res: Response) => {
 
 const getTotalpriceOrder = async (req: Request, res: Response) => {
     try {
-
+        const user = req.params.userId
+        const result = await userService.getTotalpriceOrderDB(user)
 
         res.status(200).json({
             success: true,
-            message: 'User delete success',
-            data: ''
+            message: 'Total Price successdfuly',
+            data: result
         })
     } catch (err) {
         res.status(500).json({
