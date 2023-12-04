@@ -30,7 +30,9 @@ export type TUser = {
     orders?: TOrder[]
 }
 
+
 export type UserMethod = {
+    // eslint-disable-next-line no-unused-vars
     isUserExist(userId: string): Promise<TUser | null>
 }
 

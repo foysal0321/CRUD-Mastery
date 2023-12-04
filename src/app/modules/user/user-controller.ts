@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import { userService } from "./user-service";
 import { userValidate } from "./user-validation";
@@ -23,6 +24,7 @@ const createUser = async (req: Request, res: Response) => {
     }
 }
 
+
 const getUser = async (req: Request, res: Response) => {
     try {
         const result = await userService.getUserDB()
@@ -41,6 +43,7 @@ const getUser = async (req: Request, res: Response) => {
     }
 };
 
+
 const getSingleUser = async (req: Request, res: Response) => {
     try {
         const user = req.params.userId
@@ -54,10 +57,10 @@ const getSingleUser = async (req: Request, res: Response) => {
             message: 'User fetched successfuly',
             data: result
         })
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({
             success: false,
-            message: "User not found",
+            message: err.message || "User not found",
             error: {
                 code: 404,
                 description: "User not found!"
@@ -72,19 +75,19 @@ const updateUser = async (req: Request, res: Response) => {
         const updateData: TUser = req.body
         const result = await userService.updateUserDB(user, updateData)
 
-        if(await !result?.isUserExist(user)){
+        if (await !result?.isUserExist(user)) {
             throw new Error('User not found')
-          
-        } 
+
+        }
         res.status(200).json({
             success: true,
             message: 'User update successfuly',
             data: result
         })
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({
             success: false,
-            message: "User not found",
+            message: err.message || "User not found",
             error: {
                 code: 404,
                 description: "User not found!"
@@ -98,18 +101,18 @@ const deleteUser = async (req: Request, res: Response) => {
         const user = req.params.userId
         const result = await userService.deleteUserDB(user)
 
-        if(await !result?.isUserExist(user)){
+        if (await !result?.isUserExist(user)) {
             throw new Error('User not found')
-        } 
+        }
         res.status(200).json({
             success: true,
             message: 'User delete successfuly',
             data: result
         })
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({
             success: false,
-            message:  'Something was wrong',
+            message: err.message || 'Something was wrong',
             error: err
         })
     }

@@ -71,6 +71,7 @@ const userSchema = new Schema<TUser, UserModel, UserMethod>({
     }
 })
 
+
 //middleware
 userSchema.pre('save', async function (next) {
     //let user = this
@@ -81,12 +82,14 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+
 // password not send into response
 userSchema.methods.toJSON = function () {
     const obj = this.toObject();
     delete obj.password;
     return obj;
 }
+
 
 // check existUser into db
 userSchema.methods.isUserExist = async function (userId: string) {

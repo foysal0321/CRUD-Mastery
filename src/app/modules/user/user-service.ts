@@ -1,17 +1,10 @@
 import { TUser } from "./user-interface";
 import { User } from "./user-model";
 
+
 const createUserDB = async (user: TUser) => {
-
-    const result = await User.create({user}, {
-        writeConcern: {
-          w: 'majority',
-          wtimeout: 0,
-          provenance: 'clientSupplied',
-        }})
+    const result = await User.create(user)
     return result
-    
-
 };
 
 
@@ -20,10 +13,12 @@ const getUserDB = async () => {
     return result
 };
 
+
 const getSingleUserDB = async (userId: string) => {
     const result = await User.findOne({ userId })
     return result
 };
+
 
 const updateUserDB = async (userId: string, updateData: TUser) => {
     const result = await User.findOneAndUpdate({ userId }, {$set: updateData})
@@ -35,12 +30,14 @@ const deleteUserDB = async (userId: string) => {
     return result
 };
 
+
 //-------- user order -------
 
 const createProductUserDB = async (userId: string, updateOrder: TUser) => {
     const result = await User.findOneAndUpdate({userId}, {$push: {orders: updateOrder} })
     return result
 }
+
 
 const getOrderUserDB = async (userId: string) => {
     const id = Number(userId)
@@ -51,6 +48,7 @@ const getOrderUserDB = async (userId: string) => {
     ]).project({orders: 1})
     return result
 }
+
 
 const getTotalpriceOrderDB = async (userId: string) => {
     const id = Number(userId)
@@ -68,6 +66,7 @@ const getTotalpriceOrderDB = async (userId: string) => {
       ])
       return result
 }
+
 
 
 export const userService = {
