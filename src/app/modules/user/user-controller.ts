@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { userService } from "./user-service";
 import { userValidate } from "./user-validation";
-import { TOrder, TUser } from "./user-interface";
-import { User } from "./user-model";
+import { TUser } from "./user-interface";
 
 const createUser = async (req: Request, res: Response) => {
     try {
@@ -15,7 +14,7 @@ const createUser = async (req: Request, res: Response) => {
             message: 'User is create successfuly',
             data: result
         })
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({
             success: false,
             message: "Something was wrong!",
@@ -55,10 +54,10 @@ const getSingleUser = async (req: Request, res: Response) => {
             message: 'User fetched successfuly',
             data: result
         })
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({
             success: false,
-            message: err.message ||"User not found",
+            message: "User not found",
             error: {
                 code: 404,
                 description: "User not found!"
@@ -82,10 +81,10 @@ const updateUser = async (req: Request, res: Response) => {
             message: 'User update successfuly',
             data: result
         })
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({
             success: false,
-            message: err.message ||"User not found",
+            message: "User not found",
             error: {
                 code: 404,
                 description: "User not found!"
@@ -107,10 +106,10 @@ const deleteUser = async (req: Request, res: Response) => {
             message: 'User delete successfuly',
             data: result
         })
-    } catch (err: any) {
+    } catch (err) {
         res.status(500).json({
             success: false,
-            message: err.message || 'Something was wrong',
+            message:  'Something was wrong',
             error: err
         })
     }

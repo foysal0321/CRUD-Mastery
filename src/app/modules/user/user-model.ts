@@ -73,17 +73,17 @@ const userSchema = new Schema<TUser, UserModel, UserMethod>({
 
 //middleware
 userSchema.pre('save', async function (next) {
-    const user = this
+    //let user = this
     //hasing password and save into db
-    user.password = await bcrypt.hash(
-        user.password, Number(config.bcrpt_salt_round)
+    this.password = await bcrypt.hash(
+        this.password, Number(config.bcrpt_salt_round)
     )
     next()
 })
 
 // password not send into response
 userSchema.methods.toJSON = function () {
-    let obj = this.toObject();
+    const obj = this.toObject();
     delete obj.password;
     return obj;
 }

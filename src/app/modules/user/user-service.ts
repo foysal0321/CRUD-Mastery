@@ -2,16 +2,25 @@ import { TUser } from "./user-interface";
 import { User } from "./user-model";
 
 const createUserDB = async (user: TUser) => {
-    const result = await User.create(user)
+
+    const result = await User.create({user}, {
+        writeConcern: {
+          w: 'majority',
+          wtimeout: 0,
+          provenance: 'clientSupplied',
+        }})
     return result
+    
+
 };
+
 
 const getUserDB = async () => {
     const result = await User.find()
     return result
 };
 
-const getSingleUserDB = async (userId: any) => {
+const getSingleUserDB = async (userId: string) => {
     const result = await User.findOne({ userId })
     return result
 };
